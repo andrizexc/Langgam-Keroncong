@@ -1,0 +1,107 @@
+<script>
+           var music3 = document.getElementById('music3'); // id for audio element
+      var duration = music3.duration; // Duration of audio clip, calculated here for embedding purposes
+      var pButton3 = document.getElementById('pButton3'); // play button
+      var playhead3 = document.getElementById('playhead3'); // playhead3
+      var timeline3 = document.getElementById('timeline3'); // timeline3
+
+      // timeline3 width adjusted for playhead3
+      var timeline3Width = timeline3.offsetWidth - playhead3.offsetWidth;
+
+      // play button event listenter
+      pButton3.addEventListener("click", play);
+
+      // timeupdate event listener
+      music3.addEventListener("timeupdate", timeUpdate, false);
+
+      // makes timeline3 clickable
+      timeline3.addEventListener("click", function (event) {
+          moveplayhead3(event);
+          music3.currentTime = duration * clickPercent(event);
+      }, false);
+
+      // returns click as decimal (.77) of the total timeline3Width
+      function clickPercent(event) {
+          return (event.clientX - getPosition(timeline3)) / timeline3Width;
+      }
+
+      // makes playhead3 draggable
+      playhead3.addEventListener('mousedown', mouseDown, false);
+      window.addEventListener('mouseup', mouseUp, false);
+
+      // Boolean value so that audio position is updated only when the playhead3 is released
+      var onplayhead3 = false;
+
+      // mouseDown EventListener
+      function mouseDown() {
+          onplayhead3 = true;
+          window.addEventListener('mousemove', moveplayhead3, true);
+          music3.removeEventListener('timeupdate', timeUpdate, false);
+      }
+
+      // mouseUp EventListener
+      // getting input from all mouse clicks
+      function mouseUp(event) {
+          if (onplayhead3 == true) {
+              moveplayhead3(event);
+              window.removeEventListener('mousemove', moveplayhead3, true);
+              // change current time
+              music3.currentTime = duration * clickPercent(event);
+              music3.addEventListener('timeupdate', timeUpdate, false);
+          }
+          onplayhead3 = false;
+      }
+      // mousemove EventListener
+      // Moves playhead3 as user drags
+      function moveplayhead3(event) {
+          var newMargLeft = event.clientX - getPosition(timeline3);
+
+          if (newMargLeft >= 0 && newMargLeft <= timeline3Width) {
+              playhead3.style.marginLeft = newMargLeft + "px";
+          }
+          if (newMargLeft < 0) {
+              playhead3.style.marginLeft = "0px";
+          }
+          if (newMargLeft > timeline3Width) {
+              playhead3.style.marginLeft = timeline3Width + "px";
+          }
+      }
+
+      // timeUpdate
+      // Synchronizes playhead3 position with current point in audio
+      function timeUpdate() {
+          var playPercent = timeline3Width * (music3.currentTime / duration);
+          playhead3.style.marginLeft = playPercent + "px";
+          if (music3.currentTime == duration) {
+              pButton3.className = "";
+              pButton3.className = "fas fa-play";
+          }
+      }
+
+      //Play and Pause
+      function play() {
+          // start music3
+          if (music3.paused) {
+              music3.play();
+              // remove play, add pause
+              pButton3.className = "";
+              pButton3.className = "fas fa-pause";
+          } else { // pause music3
+              music3.pause();
+              // remove pause, add play
+              pButton3.className = "";
+              pButton3.className = "fas fa-play";
+          }
+      }
+
+      // Gets audio file duration
+      music3.addEventListener("canplaythrough", function () {
+          duration = music3.duration;
+      }, false);
+
+      // getPosition
+      // Returns elements left position relative to top-left of viewport
+      function getPosition(el) {
+          return el.getBoundingClientRect().left;
+      }
+          </script>

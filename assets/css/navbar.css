@@ -1,0 +1,31 @@
+.navbar{
+    z-index: 999;
+    height: 70px;
+    max-width: 1140px;
+    background: #612a6b;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    position: fixed;
+}
+
+.navbar ul li{
+    display: inline-block;
+    padding: 0px 57px;
+}
+.navbar ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-family: MNE-B;
+}
+.navbar ul li a:hover{
+    color: #ef7d00;
+}
+.navbar ul .logo{
+    padding: 0px 50px 0px 0px;
+}
+.navbar ul li img{
+    max-width: 150px;
+}
+.navbar ul li a.active{
+    color: #ef7d00;
+}

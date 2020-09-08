@@ -1,0 +1,34 @@
+
+.footer{
+    background: #884a93;
+    padding: 40px 0px;
+}
+.footer .img-footer .row div{
+}
+.footer .img-footer img{
+    width: 90%;
+}
+.footer .contact-footer .row div{
+    margin-top: 9px;
+}
+.footer a{
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.footer a i{
+    padding-right: 20px;
+}
+
+
+.scroll-3{
+    position: fixed;
+    bottom: 20px;
+    left: 93%;
+    animation: none;
+    padding: 0px 20px;
+    background: #612a6b;
+    border-radius: 10px;
+    border: none;
+    display: none;
+}
